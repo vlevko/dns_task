@@ -117,12 +117,9 @@ def _get_response_answer(rtype):
     body += rtype
     body += (1).to_bytes(2, byteorder='big')
     body += (400).to_bytes(4, byteorder='big')
-    if rtype == b'\x00\x1c':
-        body += (16).to_bytes(2, byteorder='big')
-        body += (0).to_bytes(16, byteorder='big')
-    else:
-        body += (4).to_bytes(2, byteorder='big')
-        body += (0).to_bytes(4, byteorder='big')
+    ip_length = 16 if rtype == b'\x00\x1c' else 4
+    body += (ip_length).to_bytes(2, byteorder='big')
+    body += (0).to_bytes(ip_length, byteorder='big')
     return body
 
 
