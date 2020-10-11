@@ -1,0 +1,5 @@
+{
+  "server": "8.8.8.8",
+  "block": ["www.google.com", "google.com"],
+  "answer": "0101"
+}
