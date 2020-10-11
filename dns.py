@@ -43,7 +43,9 @@ def _load_configuration(conf):
         configuration = json.load(conf)
         configuration['server']
         configuration['block']
-        configuration['answer']
+        int(configuration['answer'], 2)
+        if not len(configuration['answer']) == 4:
+            raise
     except:
         print(f'[*] Error: unable to load JSON configuration from "{conf.name}"')
         sys.exit(1)
@@ -153,6 +155,9 @@ def _start_dns(serv, conf):
             sock.sendto(resp, addr)
         except KeyboardInterrupt:
             break
+        except:
+            print('[*] Error: unable to resolve a DNS query')
+            sys.exit(1)
     print('[*] Closing Connection')
     sock.shutdown(socket.SHUT_RDWR)
     sock.close()
